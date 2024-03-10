@@ -10,7 +10,8 @@ namespace StickerShop.Controllers
     {
         private iStickerService _stickerService;
 
-        public ReactController(iStickerService _stickersService) {
+        public ReactController(iStickerService _stickersService) 
+        {
             this._stickerService = _stickersService;
         }
 
