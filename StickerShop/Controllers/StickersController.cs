@@ -23,12 +23,12 @@ namespace StickerShop.Controllers
         [HttpGet]
         public ActionResult<List<Sticker>> Get()
         {
-            return stickerService.GetStickers();
+            return new JsonResult(stickerService.GetStickers());
         }
 
         // GET api/<StickersController>/5
         [HttpGet("{id}")]
-        public ActionResult<Sticker> Get(string id)
+        public ActionResult<Sticker> Get(int id)
         {
             var sticker = stickerService.GetSticker(id);
 
@@ -37,7 +37,7 @@ namespace StickerShop.Controllers
                 return NotFound($"The sticker with id {id} was not found");
             }
 
-            return sticker;
+            return new JsonResult(sticker);
         }
 
         // POST api/<StickersController>
@@ -51,7 +51,7 @@ namespace StickerShop.Controllers
 
         // PUT api/<StickersController>/5
         [HttpPut("{id}")]
-        public ActionResult<Sticker> Put(string id, [FromBody] Sticker sticker)
+        public ActionResult<Sticker> Put(int id, [FromBody] Sticker sticker)
         {
             var existingSticker =stickerService.GetSticker(id);
 
@@ -67,7 +67,7 @@ namespace StickerShop.Controllers
 
         // DELETE api/<StickersController>/5
         [HttpDelete("{id}")]
-        public ActionResult<Sticker> Delete(string id)
+        public ActionResult<Sticker> Delete(int id)
         {
             var existingSticker = stickerService.GetSticker(id);
 

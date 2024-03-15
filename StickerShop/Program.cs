@@ -27,6 +27,7 @@ builder.Services.AddSingleton<IMongoClient>(s =>
 builder.Services.AddScoped<iStickerService, StickerController>();
 
 builder.Services.AddControllers();
+builder.Services.AddRazorPages();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -34,11 +35,15 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+
+app.UseDefaultFiles();
+
+app.UseStaticFiles();
+
+app.MapRazorPages();
 
 app.UseCors("ReactPolicy");
 

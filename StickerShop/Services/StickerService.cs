@@ -19,12 +19,12 @@ namespace StickerShop.Services
             return sticker;
         }
 
-        public void DeleteSticker(string StickerId)
+        public void DeleteSticker(int StickerId)
         {
             _stickers.DeleteOne(sticker => sticker.StickerId == StickerId);
         }
 
-        public Sticker GetSticker(string StickerId)
+        public Sticker GetSticker(int StickerId)
         {
             return _stickers.Find(sticker => sticker.StickerId == StickerId).FirstOrDefault();
         }
@@ -34,7 +34,7 @@ namespace StickerShop.Services
             return _stickers.Find(sticker => true).ToList();            
         }
 
-        public void UpdateSticker(string StickerId, Sticker sticker)
+        public void UpdateSticker(int StickerId, Sticker sticker)
         {
             _stickers.ReplaceOne(sticker => sticker.StickerId == StickerId, sticker);
         }

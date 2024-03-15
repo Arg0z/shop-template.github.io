@@ -6,10 +6,10 @@ namespace StickerShop.Services
     public interface iStickerService
     {
         List<Sticker> GetStickers();
-        Sticker GetSticker(string Stickerid);
+        Sticker GetSticker(int Stickerid);
         Sticker CreateSticker(Sticker sticker);
-        void UpdateSticker(string Stickerid, Sticker sticker);
-        void DeleteSticker(string Stickerid);
+        void UpdateSticker(int Stickerid, Sticker sticker);
+        void DeleteSticker(int Stickerid);
 
     }
 }
