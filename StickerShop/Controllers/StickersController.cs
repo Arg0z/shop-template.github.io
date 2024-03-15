@@ -40,6 +40,23 @@ namespace StickerShop.Controllers
             return new JsonResult(sticker);
         }
 
+        [HttpGet("id={id}&numOfStickers={numOfStickers}")]
+        public ActionResult<Sticker> Get(int id, int numOfStickers)
+        {
+            List<Sticker> stickers = new List<Sticker>();
+
+            for (int i = id; i < numOfStickers; i++)
+            {
+                var sticker = stickerService.GetSticker(i);
+
+                if (sticker != null)
+                {
+                    stickers.Add(sticker);
+                }              
+            }          
+            return new JsonResult(stickers);
+        }
+
         // POST api/<StickersController>
         [HttpPost]
         public ActionResult<Sticker> Post([FromBody] Sticker sticker)

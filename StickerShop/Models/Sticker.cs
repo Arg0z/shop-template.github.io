@@ -10,7 +10,7 @@ namespace StickerShop.Models
         [BsonId]
         public int StickerId { get; set; }
         [BsonElement("name")]
-        public string StickerName { get; set; } = string.Empty;
+        public string StickerName { get; set; } = "Empty";
         [BsonElement("price")]
         public float StickerPrice { get; set; }
         [BsonElement("thumbnail")]
@@ -21,14 +21,16 @@ namespace StickerShop.Models
         [BsonElement("height")]
         public int StickerSizeHeight { get; set; }
         [BsonElement("categories")]
-        public string StickerCategories { get; set; } = string.Empty;
+        public List<string> StickerCategories { get; set; } = new List<string>();
         [BsonElement("colors")]
         public List<string> StickerColors { get; set; } = new List<string>();
         [BsonElement("materials")]
         public List<string> StickerMaterials { get; set; } = new List<string>();
         [BsonElement("description")]
         public string StickerDescription{ get; set; } = string.Empty;
-        [BsonElement("imagelink")]
-        public string StickerimageLink { get; set; } = string.Empty;
+        [BsonElement("new")]
+        public bool StickerNew {  get; set; }
+        [BsonElement("discount")]
+        public bool StickerDiscount { get; set; }
     }
 }
