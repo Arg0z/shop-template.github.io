@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("ReactPolicy",
-        builder => builder.WithOrigins("https://stickershop-template-front-github-io.vercel.app")
+        builder => builder.WithOrigins("https://stickershop-template-front-github-io.vercel.app", "http://localhost:3000")
                           .AllowAnyMethod()
                           .AllowAnyHeader());
 });

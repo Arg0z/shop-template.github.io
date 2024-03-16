@@ -32,5 +32,7 @@ namespace StickerShop.Models
         public bool StickerNew {  get; set; }
         [BsonElement("discount")]
         public bool StickerDiscount { get; set; }
+        [BsonElement("inStock")]
+        public int StickerInStock { get; set; }
     }
 }
