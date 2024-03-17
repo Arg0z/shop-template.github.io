@@ -10,6 +10,6 @@ namespace StickerShop.Services
         Sticker CreateSticker(Sticker sticker);
         void UpdateSticker(int Stickerid, Sticker sticker);
         void DeleteSticker(int Stickerid);
-        List<Sticker> GetFilteredStickers(bool newSticker, bool discount, string category, string color);
+        List<Sticker> GetFilteredStickers(bool newSticker, bool discount, string category, string color, int page, int size);
     }
 }

@@ -58,10 +58,10 @@ namespace StickerShop.Controllers
             return new JsonResult(stickers);
         }
 
-        [HttpGet("new={isNew}&discount={discount}&category={category}&color={color}")]
-        public ActionResult<List<Sticker>> GetFilteredStickers(bool isNew, bool discount, string category, string color)
+        [HttpGet("filter")]
+        public ActionResult<List<Sticker>> GetFilteredStickers(bool isNew = false, bool discount = false, string category = "", string color = "", int page = 0, int size = 0)
         {
-            return stickerService.GetFilteredStickers(isNew, discount, category, color);
+            return stickerService.GetFilteredStickers(isNew, discount, category, color, page, size);
         }
 
         // POST api/<StickersController>

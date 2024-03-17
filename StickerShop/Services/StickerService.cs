@@ -40,14 +40,34 @@ namespace StickerShop.Services
             _stickers.ReplaceOne(sticker => sticker.StickerId == StickerId, sticker);
         }
 
-        public List<Sticker> GetFilteredStickers(bool newSticker, bool discount, string category, string color)
+        public List<Sticker> GetFilteredStickers(bool newSticker, bool discount, string category, string color, int page, int size)
         {
             var filter = Builders<Sticker>.Filter.Empty;
-            filter &= Builders<Sticker>.Filter.Eq("discount", discount);
-            filter &= Builders<Sticker>.Filter.Eq("new", newSticker);
-            filter &= Builders<Sticker>.Filter.AnyEq(s => s.StickerCategories, category);
-            filter &= Builders<Sticker>.Filter.AnyEq(s => s.StickerColors, color);
-            return _stickers.Find(filter).ToList();
+            if(newSticker)
+                filter &= Builders<Sticker>.Filter.Eq("new", newSticker);            
+            if (discount)
+                filter &= Builders<Sticker>.Filter.Eq("discount", discount);
+            if (category != String.Empty)
+                filter &= Builders<Sticker>.Filter.AnyEq(s => s.StickerCategories, category);
+            if (color != String.Empty)
+                filter &= Builders<Sticker>.Filter.AnyEq(s => s.StickerColors, color);
+            List<Sticker> filteredStickers = _stickers.Find(filter).ToList();
+
+            if(page > 0)
+            {
+                int offset = (page - 1) * size;
+
+                if(offset + size <= filteredStickers.Count - 1)
+                {
+                    return filteredStickers.GetRange(offset, size);
+                }
+                else
+                {
+                    return filteredStickers.GetRange(offset, filteredStickers.Count - offset);
+                }
+            }
+
+            return filteredStickers;
         }
     }
 }
