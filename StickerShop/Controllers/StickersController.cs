@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
+using MongoDB.Driver;
 using StickerShop.Models;
 using StickerShop.Services;
 
@@ -55,6 +56,30 @@ namespace StickerShop.Controllers
                 }              
             }          
             return new JsonResult(stickers);
+        }
+
+        [HttpGet("new")]
+        public ActionResult<List<Sticker>> GetNew()
+        {
+            return stickerService.GetNewStickers();
+        }
+
+        [HttpGet("discount")]
+        public ActionResult<List<Sticker>> GetDiscount()
+        {
+            return stickerService.GetDiscountStickers();
+        }
+
+        [HttpGet("category={category}")]
+        public ActionResult<List<Sticker>> GetCategorieStickers(string category)
+        {
+            return stickerService.GetCategoryStickers(category);
+        }
+
+        [HttpGet("color={color}")]
+        public ActionResult<List<Sticker>> GetColorStickers(string color)
+        {
+            return stickerService.GetColorStickers(color);
         }
 
         // POST api/<StickersController>

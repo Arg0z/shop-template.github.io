@@ -1,6 +1,7 @@
 ﻿using StickerShop.Models;
 using MongoDB.Driver;
 using MongoDB.Bson;
+using Microsoft.AspNetCore.Mvc;
 
 namespace StickerShop.Services
 {
@@ -37,6 +38,29 @@ namespace StickerShop.Services
         public void UpdateSticker(int StickerId, Sticker sticker)
         {
             _stickers.ReplaceOne(sticker => sticker.StickerId == StickerId, sticker);
+        }
+
+        public List<Sticker> GetNewStickers()
+        {
+            var filter = Builders<Sticker>.Filter.Eq("new", true);
+            return _stickers.Find(filter).ToList();
+        }
+
+        public List<Sticker> GetDiscountStickers()
+        {
+            var filter = Builders<Sticker>.Filter.Eq("discount", true);
+            return _stickers.Find(filter).ToList();
+        }
+
+        public List<Sticker> GetCategoryStickers(string category)
+        {
+            var filter = Builders<Sticker>.Filter.AnyEq(s => s.StickerCategories, category);
+            return _stickers.Find(filter).ToList();
+        }
+        public List<Sticker> GetColorStickers(string color)
+        {
+            var filter = Builders<Sticker>.Filter.AnyEq(s => s.StickerColors, color);
+            return _stickers.Find(filter).ToList();
         }
     }
 }

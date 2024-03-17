@@ -10,6 +10,9 @@ namespace StickerShop.Services
         Sticker CreateSticker(Sticker sticker);
         void UpdateSticker(int Stickerid, Sticker sticker);
         void DeleteSticker(int Stickerid);
-
+        List<Sticker> GetNewStickers();
+        List<Sticker> GetDiscountStickers();
+        List<Sticker> GetCategoryStickers(string category);
+        List<Sticker> GetColorStickers(string color);
     }
 }
