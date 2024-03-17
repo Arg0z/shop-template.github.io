@@ -40,26 +40,13 @@ namespace StickerShop.Services
             _stickers.ReplaceOne(sticker => sticker.StickerId == StickerId, sticker);
         }
 
-        public List<Sticker> GetNewStickers()
+        public List<Sticker> GetFilteredStickers(bool newSticker, bool discount, string category, string color)
         {
-            var filter = Builders<Sticker>.Filter.Eq("new", true);
-            return _stickers.Find(filter).ToList();
-        }
-
-        public List<Sticker> GetDiscountStickers()
-        {
-            var filter = Builders<Sticker>.Filter.Eq("discount", true);
-            return _stickers.Find(filter).ToList();
-        }
-
-        public List<Sticker> GetCategoryStickers(string category)
-        {
-            var filter = Builders<Sticker>.Filter.AnyEq(s => s.StickerCategories, category);
-            return _stickers.Find(filter).ToList();
-        }
-        public List<Sticker> GetColorStickers(string color)
-        {
-            var filter = Builders<Sticker>.Filter.AnyEq(s => s.StickerColors, color);
+            var filter = Builders<Sticker>.Filter.Empty;
+            filter &= Builders<Sticker>.Filter.Eq("discount", discount);
+            filter &= Builders<Sticker>.Filter.Eq("new", newSticker);
+            filter &= Builders<Sticker>.Filter.AnyEq(s => s.StickerCategories, category);
+            filter &= Builders<Sticker>.Filter.AnyEq(s => s.StickerColors, color);
             return _stickers.Find(filter).ToList();
         }
     }
