@@ -40,7 +40,7 @@ namespace StickerShop.Services
             _stickers.ReplaceOne(sticker => sticker.StickerId == StickerId, sticker);
         }
 
-        public List<Sticker> GetFilteredStickers(bool newSticker, bool discount, string category, string color, int page, int size)
+        public List<Sticker> GetFilteredStickers(bool newSticker, bool discount, string category, string color)
         {
             var filter = Builders<Sticker>.Filter.Empty;
             if(newSticker)
@@ -52,20 +52,6 @@ namespace StickerShop.Services
             if (color != String.Empty)
                 filter &= Builders<Sticker>.Filter.AnyEq(s => s.StickerColors, color);
             List<Sticker> filteredStickers = _stickers.Find(filter).ToList();
-
-            if(page > 0)
-            {
-                int offset = (page - 1) * size;
-
-                if(offset + size <= filteredStickers.Count - 1)
-                {
-                    return filteredStickers.GetRange(offset, size);
-                }
-                else
-                {
-                    return filteredStickers.GetRange(offset, filteredStickers.Count - offset);
-                }
-            }
 
             return filteredStickers;
         }

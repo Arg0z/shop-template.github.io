@@ -61,7 +61,29 @@ namespace StickerShop.Controllers
         [HttpGet("filter")]
         public ActionResult<List<Sticker>> GetFilteredStickers(bool isNew = false, bool discount = false, string category = "", string color = "", int page = 0, int size = 0)
         {
-            return stickerService.GetFilteredStickers(isNew, discount, category, color, page, size);
+            List<Sticker> filteredStickers = stickerService.GetFilteredStickers(isNew, discount, category, color);
+            List<Sticker> stickersToReturn = new List<Sticker>();
+
+
+            if (page > 0)
+            {
+                int offset = (page - 1) * size;
+
+                if (offset + size <= filteredStickers.Count - 1)
+                {
+                    stickersToReturn = filteredStickers.GetRange(offset, size);
+                }
+                else
+                {
+                    stickersToReturn = filteredStickers.GetRange(offset, filteredStickers.Count - offset);
+                }
+            }
+            else
+            {
+                stickersToReturn = filteredStickers;
+            }
+
+            return new JsonResult(new { Stickers = stickersToReturn, Count = filteredStickers.Count() });
         }
 
         // POST api/<StickersController>
